@@ -33,7 +33,7 @@ void searchName(){
 }
 
 void searchGrade(){
-    cout << "1";
+    
 }
 
 
