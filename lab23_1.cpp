@@ -3,7 +3,7 @@
 #include<vector>
 #include<string>
 #include<cstdlib>
-
+#include<windows.h>
 using namespace std;
 
 char score2grade(int score){
