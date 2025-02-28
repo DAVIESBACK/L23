@@ -4,7 +4,6 @@
 #include<string>
 #include<cstdlib>
 #include<sstream>
-
 using namespace std;
 
 char score2grade(int score){
@@ -21,23 +20,24 @@ string toUpperStr(string x){
     return y;
 }
 
-void importDataFromFile(string filename, vector<string> &names, vector<int> &scores, vector<char> &grades){
+void importDataFromFile(string filename, vector<string>& names, vector<int>& scores, vector<char>& grades){
     ifstream file(filename);
-    if (!file) {
-        cerr << "Error: Cannot open file" << endl;
+    if(!file){
+        cerr << "Error opening file: " << filename << endl;
         return;
     }
     
     string line;
-    while (getline(file, line)) {
-        stringstream ss(line);
-        string name;
-        getline(ss, name, ':');
-        names.push_back(name);
+    while(getline(file, line)){
+        size_t pos = line.find(":");
+        if(pos == string::npos) continue;
         
+        string name = line.substr(0, pos);
         int s1, s2, s3;
-        ss >> s1 >> s2 >> s3;
+        sscanf(line.c_str() + pos + 1, "%d %d %d", &s1, &s2, &s3);
+        
         int totalScore = s1 + s2 + s3;
+        names.push_back(name);
         scores.push_back(totalScore);
         grades.push_back(score2grade(totalScore));
     }
